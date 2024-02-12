@@ -1,7 +1,9 @@
 package com.example.personcrud.controllers;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,12 +21,52 @@ import com.example.personcrud.models.Persons;
 @Controller
 public class LoginController {
 	
-	@RequestMapping(method=RequestMethod.GET,value="/display")
-	public String demo(Model model) {
+	public List<Persons> persons = new ArrayList<>();
+	
+	public LoginController() {
 		Persons p1 = new Persons("1","anil","Hyd");
 		Persons p2 = new Persons("2","sunil","Chn");
 		Persons p3 = new Persons("3","kamal","Blr");
-		List<Persons> persons = Arrays.asList(p1,p2,p3);
+		persons.add(p1);
+		persons.add(p2);
+		persons.add(p3);
+	}
+	
+	@PostMapping("/postData")
+	public String postData(Model model,@RequestParam("id")String id,
+	@RequestParam("name")String name, @RequestParam("city") String city){
+		
+		Persons p = new Persons(id,name,city);
+		persons.add(p);
+		model.addAttribute("persons", persons);
+		return "demo";
+	}
+	
+	@GetMapping("/add")
+	public String add() {
+		return "addform";
+	}
+	
+	@GetMapping("/searchData")
+	public String searchData(Model model, @RequestParam("lid") String lid) {
+		
+		List<Persons> prs = persons.stream()
+				
+				.filter(p -> p.id.equals(lid))
+				.map(p->p).collect(Collectors.toList());
+		
+		model.addAttribute("persons", prs);
+		return "searchdisplay";
+	}
+	
+	@GetMapping("/search")
+	public String searchData() {
+		
+		return "search";
+	}
+	
+	@RequestMapping(method=RequestMethod.GET,value="/display")
+	public String demo(Model model) {
 		model.addAttribute("persons", persons);
 		return "demo";
 	}
