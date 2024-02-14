@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.restemployeecrud.dao.EmployeeDao;
+import com.example.restemployeecrud.exceptions.EmployeeNotFoundException;
 import com.example.restemployeecrud.model.Employee;
 
 

@@ -2,6 +2,7 @@ package com.example.restemployeecrud.dao;
 
 import java.util.List;
 
+import com.example.restemployeecrud.exceptions.EmployeeNotFoundException;
 import com.example.restemployeecrud.model.Employee;
 
 public interface EmployeeDao {

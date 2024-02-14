@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Repository;
 
+import com.example.restemployeecrud.exceptions.EmployeeNotFoundException;
 import com.example.restemployeecrud.model.Employee;
 import com.example.restemployeecrud.utils.EmployeeUtils;
 
@@ -37,7 +38,9 @@ public class EmployeeDaoImpl implements EmployeeDao{
 	@Override
 	public Employee searchEmployee(String empid) throws Exception{
 		// TODO Auto-generated method stub
-		List<Employee> emps= employees.stream().filter(emp->emp.getEmpid().equals(empid)).map(emp->emp).collect(Collectors.toList());
+		List<Employee> emps= employees.stream()
+							.filter(emp->emp.getEmpid().equals(empid))
+							.map(emp->emp).collect(Collectors.toList());
 		return emps.get(0);
 	}
 
