@@ -33,4 +33,22 @@ public class NoteServiceImpl implements NoteService {
 		return dao.findById(id);
 	}
 
+	@Override
+	public List<Notes> getNotesByTitle(String title) {
+		// TODO Auto-generated method stub
+		return dao.findByTitle(title);
+	}
+
+	@Override
+	public List<Notes> getNotesGreatherThanPid(int id) {
+		// TODO Auto-generated method stub
+		return dao.findByPidGreaterThan(id);
+	}
+
+	@Override
+	public List<Notes> findByTitleNAuthor(String title, String author) {
+		// TODO Auto-generated method stub
+		return dao.findByNameAndTitle(author, title);
+	}
+
 }
