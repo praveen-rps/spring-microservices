@@ -16,6 +16,8 @@ import com.examples.notesjparestproject.exceptions.NotesNotFoundException;
 import com.examples.notesjparestproject.models.Notes;
 import com.examples.notesjparestproject.service.NoteService;
 
+import jakarta.validation.Valid;
+
 @RestController
 public class NoteController {
 	
@@ -47,13 +49,15 @@ public class NoteController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Notes insertNotes(@RequestBody Notes note) {
+	public Notes insertNotes(@Valid @RequestBody Notes note) {
+		// code the for specific validation
+		
 		return service.insertNotes(note);
 	}
 	
 	@GetMapping("/search/{pid}")
 	@ResponseStatus(HttpStatus.OK)
-	public Optional<Notes> searchForNote(@PathVariable Integer pid) {
+	public Optional<Notes> searchForNote(@PathVariable @Valid Integer pid) {
 		Optional<Notes> notes = service.searchNotes(pid);
 		if(notes.isEmpty())	
 		throw new NotesNotFoundException("Notes with given pid is not found");

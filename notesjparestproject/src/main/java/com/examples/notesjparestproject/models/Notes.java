@@ -1,17 +1,24 @@
 package com.examples.notesjparestproject.models;
 
+import org.hibernate.validator.constraints.Range;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name="notes")
 public class Notes {
 	
 	@Id
+	@Min(value=5000, message="pid must be above 5000")
 	int pid;
+	@NotNull(message="Author cannot be null")
 	String author;
 	String title;
+	//@Range(min=10, max=250)
 	String description;
 	public Notes() {
 		
